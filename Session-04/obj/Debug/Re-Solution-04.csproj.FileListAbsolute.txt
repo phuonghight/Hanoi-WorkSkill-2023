@@ -1,0 +1,16 @@
+D:\CODE\IT-Solution\practical\Re-Solution-04\bin\Debug\Re-Solution-04.exe.config
+D:\CODE\IT-Solution\practical\Re-Solution-04\bin\Debug\Re-Solution-04.exe
+D:\CODE\IT-Solution\practical\Re-Solution-04\bin\Debug\Re-Solution-04.pdb
+D:\CODE\IT-Solution\practical\Re-Solution-04\bin\Debug\EntityFramework.dll
+D:\CODE\IT-Solution\practical\Re-Solution-04\bin\Debug\EntityFramework.SqlServer.dll
+D:\CODE\IT-Solution\practical\Re-Solution-04\bin\Debug\EntityFramework.xml
+D:\CODE\IT-Solution\practical\Re-Solution-04\bin\Debug\EntityFramework.SqlServer.xml
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re-Solution-04.csproj.AssemblyReference.cache
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re_Solution_04.AdvancedSearch.resources
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re_Solution_04.SimpleSearch.resources
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re_Solution_04.Properties.Resources.resources
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re-Solution-04.csproj.GenerateResource.cache
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re-Solution-04.csproj.CoreCompileInputs.cache
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re-Solution-04.csproj.CopyComplete
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re-Solution-04.exe
+D:\CODE\IT-Solution\practical\Re-Solution-04\obj\Debug\Re-Solution-04.pdb

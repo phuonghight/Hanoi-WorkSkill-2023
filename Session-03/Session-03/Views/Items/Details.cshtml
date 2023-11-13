@@ -1,0 +1,83 @@
+﻿@model Session_03.Models.Item
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h6>Details of "@Model.Title" at @Model.Area.Name</h6>
+
+<div class="d-flex justify-content-between align-items-center flex-wrap" >
+    @foreach (var img in Model.ItemPictures)
+    {
+        <div class="my-2" style="width: 23%">
+            <img src="@Url.Content("~/itemPictures/" + img.PictureFileName)" style="width: 100%; object-fit: cover"/>
+        </div>
+    }
+</div>
+
+<div class="d-flex justify-content-between align-items-center py-5">
+    <div style="width: 32%">
+        <div class="d-flex align-items-center">
+            <p class="me-4">Capacity: @Model.Capacity</p>
+            <p class="me-4">Bedroooms: @Model.NumberOfBedrooms</p>
+            <p class="me-4">Beds: @Model.NumberOfBeds</p>
+            <p>Bathroom: @Model.NumberOfBathrooms</p>
+        </div>
+        <div>
+            <b>Description</b>
+            <br />
+            @Model.Description
+        </div>
+        <div>
+            <b>Host Rules</b>
+            <br />
+            @Model.HostRules
+        </div>
+    </div>
+    <div>
+        <b>Available Amenities:</b>
+        @foreach (var a in Model.ItemAmenities)
+        {
+            <div>@a.Amenity.Name</div>
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm("Details", "Items", FormMethod.Post))
+        {
+            <input name="id" value="@Model.ID" hidden />
+            <input name="price" value="@ViewBag.Price" hidden />
+            <p>Check-in: dd/MM/yyyy</p>
+            <p>Check-out: dd/MM/yyyy</p>
+            <p>Reservation for <input name="capacity" type="number" value="1" /> people</p>
+            <p><b>Payable Amount: @ViewBag.Price USD</b></p>
+            @*<button onclick="payment(@Model.ID, @ViewBag.Price)">Reserve Now</button>*@
+            <button>Reserve Now</button>
+        }
+    </div>
+</div>
+
+<script>
+    const data = "@ViewBag.ApiData";
+    if (data) {
+        console.log(data);
+    }
+    const payment = async (id, price) => {
+        const data = {
+            customer: "John Doe",
+            orderId: id.toString(),
+            price,
+            extraInfo: "string",
+            callBackUrl: "string"
+        }
+        const response = await fetch("http://localhost:5000/Payment/PaymentToken", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        });
+        const token = await response.text();
+        console.log(token);
+    }
+</script>

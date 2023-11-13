@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Session4
+namespace Re_Solution_04
 {
     using System;
     using System.Collections.Generic;

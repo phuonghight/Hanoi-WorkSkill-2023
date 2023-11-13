@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Session4.Properties
+namespace Re_Solution_04.Properties
 {
 
 

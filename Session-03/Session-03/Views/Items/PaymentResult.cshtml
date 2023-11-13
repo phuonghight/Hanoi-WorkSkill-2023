@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Payment Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h2>PaymentResult</h2>
+    <div class="mx-auto border border-3 p-5 my-5" style="width: 700px">
+        <h4>
+            Congratulations,the accommodation has been booked for
+            you from DDth of Month to DDth of Month. We wish you a nice stay!
+        </h4>
+        <div>
+            <p><b>Payment Details</b></p>
+            <p>Transaction No: @ViewBag.TransactionId</p>
+            <p>Property Title: @ViewBag.PropertyTitle</p>
+            <p>Fee: $@ViewBag.Price</p>
+        </div>
+    </div>
+</div>
+

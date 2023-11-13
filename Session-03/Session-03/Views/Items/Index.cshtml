@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Session_03.Models.Item>
+
+@{
+    ViewBag.Title = "- Reservation Result for " + ViewBag.Area;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h6>Reservation Result for @ViewBag.Area from 25/11/2022 for @ViewBag.Nights nights</h6>
+
+<div class="d-flex justify-content-between align-items-center flex-wrap">
+    @foreach (var item in Model)
+    {
+        <a style="width: 23%; text-decoration: none; color: #000" 
+           class="d-block border text-center py-3 my-3"
+           href="@Url.Action("Details", "Items", new { id = item.ID })">
+            <div>
+                @{
+                    string src = "~/itemPictures/";
+                    decimal price = item.ItemPrices.Count > 0 ? item.ItemPrices.First().Price : 0;
+
+                }
+                @if (item.ItemPictures.Count > 0)
+                {
+                    <img width="200" src="@Url.Content(src + item.ItemPictures.FirstOrDefault().PictureFileName)" />
+                }
+                else
+                {
+                    <img width="200" src="@Url.Content(src + "default.jpg")" />
+                }
+            </div>
+
+            <p><b>@item.Title</b></p>
+            <div>
+                <span class="me-3">Area: @item.Area.Name</span>
+                <span>@item.Capacity people</span>
+            </div>
+            <p>Total price: $@price</p>
+        </a>
+    }
+</div>
