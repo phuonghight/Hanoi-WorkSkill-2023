@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "- Reservation Result for " + ViewBag.Area;
+}
+
+
+<h4>Reservation result for @ViewBag.Area</h4>
+<div class="d-flex flex-wrap">
+    @foreach(session_03.Models.Item item in Model)
+    {
+        <a href="@Url.Action("Detail", "Home", new { id = item.ID })"
+           class="d-block m-3 p-3 border border-dark text-dark text-decoration-none"
+           style="width: 22%; cursor: pointer">
+            @{ 
+                string src = "~/itemPictures/";
+                src += item.ItemPictures.Count > 0 ? item.ItemPictures.First().PictureFileName : "default.jpg";
+                decimal price = item.ItemPrices.Where(x => x.Date == new DateTime(2022, 11, 25)).First().Price;
+            }
+            <div>
+                <img class="w-100" src="@Url.Content(src)"/>
+            </div>
+            <p><b>@item.Title</b></p>
+            <div>
+                <span class="me-5">Area: @item.Area.Name</span>
+                <span>Capacity: @item.Capacity</span>
+            </div>
+            <p>Total fee: $@price</p>
+        </a>
+    }
+</div>

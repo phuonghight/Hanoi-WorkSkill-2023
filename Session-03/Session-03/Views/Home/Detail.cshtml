@@ -1,0 +1,58 @@
+﻿@model session_03.Models.Item
+
+@{
+    ViewBag.Title = "- Property Detail for " + Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Detail of @Model.Title at @Model.Area.Name from 25/11/2022 for 1 night</h4>
+<div>
+    <div class="d-flex flex-wrap">
+        @foreach(session_03.Models.ItemPicture ip in Model.ItemPictures)
+        {
+            <div style="width:30%" class="m-3">
+                <img class="w-100"g src="@Url.Content("~/itemPictures/" + ip.PictureFileName)" alt="Alternate Text" />
+            </div>
+        }
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <div style="width:40%">
+            <div>
+                <span class="me-5">Capacity: @Model.Capacity</span>
+                <span class="me-5">Bedrooms: @Model.NumberOfBedrooms</span>
+                <span class="me-5">Beds: @Model.NumberOfBeds</span>
+                <span class="me-5">Bathrooms: @Model.NumberOfBathrooms</span>
+            </div>
+            <div>
+                <b>Description</b>
+                <br />
+                @Model.Description
+            </div>
+            <div>
+                <b>Host Rules</b>
+                <br />
+                @Model.HostRules
+            </div>
+        </div>
+        <div>
+            Available Amenities:
+            @foreach(session_03.Models.ItemAmenity iam in Model.ItemAmenities)
+            {
+                <p>@iam.Amenity.Name</p>
+            }
+        </div>
+        <div>
+            <p>Check-in at: 25/11/2022</p>
+            <p>Check-out at: 26/11/2022</p>
+            @using (Html.BeginForm("Payment", "Home", FormMethod.Post))
+            {
+                <input name="id" value="@Model.ID" hidden />
+                <input name="price" value="@ViewBag.Price" hidden />
+                <p>Reserve for <input name="capacity" type="number" min="1" value="1" step="1" /> people</p>
+                <p>Payable Amout: @ViewBag.Price</p>
+                <button>Reserve Now</button>
+            }
+        </div>
+    </div>
+</div>
+
