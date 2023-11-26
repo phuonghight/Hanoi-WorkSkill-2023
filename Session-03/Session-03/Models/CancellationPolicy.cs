@@ -1,4 +1,4 @@
-namespace session_03.Models
+namespace Session_03.Models
 {
     using System;
     using System.Collections.Generic;
@@ -22,6 +22,8 @@ namespace session_03.Models
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
+        public decimal Commission { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CancellationRefundFee> CancellationRefundFees { get; set; }

@@ -1,4 +1,4 @@
-namespace session_03.Models
+namespace Session_03.Models
 {
     using System;
     using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace session_03.Models
             ItemAttractions = new HashSet<ItemAttraction>();
             ItemPictures = new HashSet<ItemPicture>();
             ItemPrices = new HashSet<ItemPrice>();
+            ItemScores = new HashSet<ItemScore>();
         }
 
         public long ID { get; set; }
@@ -72,6 +73,9 @@ namespace session_03.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemPrice> ItemPrices { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ItemScore> ItemScores { get; set; }
 
         public virtual ItemType ItemType { get; set; }
 

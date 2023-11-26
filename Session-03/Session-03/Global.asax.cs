@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace session_03
+namespace Session_03
 {
     public class MvcApplication : System.Web.HttpApplication
     {

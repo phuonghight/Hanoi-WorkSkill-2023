@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace session_03.Models
+namespace Session_03.Models
 {
     public partial class Model1 : DbContext
     {
@@ -26,7 +26,10 @@ namespace session_03.Models
         public virtual DbSet<ItemPicture> ItemPictures { get; set; }
         public virtual DbSet<ItemPrice> ItemPrices { get; set; }
         public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<ItemScore> ItemScores { get; set; }
         public virtual DbSet<ItemType> ItemTypes { get; set; }
+        public virtual DbSet<Score> Scores { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<TransactionType> TransactionTypes { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -66,6 +69,10 @@ namespace session_03.Models
             modelBuilder.Entity<CancellationPolicy>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<CancellationPolicy>()
+                .Property(e => e.Commission)
+                .HasPrecision(5, 2);
 
             modelBuilder.Entity<CancellationPolicy>()
                 .HasMany(e => e.CancellationRefundFees)
@@ -146,9 +153,19 @@ namespace session_03.Models
                 .WithRequired(e => e.Item)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Item>()
+                .HasMany(e => e.ItemScores)
+                .WithRequired(e => e.Item)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<ItemType>()
                 .HasMany(e => e.Items)
                 .WithRequired(e => e.ItemType)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Score>()
+                .HasMany(e => e.ItemScores)
+                .WithRequired(e => e.Score)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TransactionType>()
@@ -171,6 +188,11 @@ namespace session_03.Models
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Items)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.ItemScores)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 

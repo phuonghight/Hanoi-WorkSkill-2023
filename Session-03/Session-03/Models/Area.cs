@@ -1,4 +1,4 @@
-namespace session_03.Models
+namespace Session_03.Models
 {
     using System;
     using System.Collections.Generic;
