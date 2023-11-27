@@ -1,6 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Session_03.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,22 +13,82 @@ namespace Session_03.Controllers
 {
     public class HomeController : Controller
     {
+        private Model1 db = new Model1();
         public ActionResult Index()
         {
-            return View();
+            var items = (from item in db.Items
+                         join ip in db.ItemPrices on item.ID equals ip.ItemID
+                         where item.Area.Name == "Seocho-gu" && ip.Date == new DateTime(2022, 11, 25)
+                         select item).ToHashSet();
+            ViewBag.Area = "Seocho-gu";
+            return View(items);
+        }
+        [HttpPost]
+        public ActionResult Index(string area)
+        {
+            var items = (from item in db.Items
+                         join ip in db.ItemPrices on item.ID equals ip.ItemID
+                         where item.Area.Name.Contains(area) && ip.Date == new DateTime(2022, 11, 25)
+                         select item).ToHashSet();
+            //if (items.Count == 0) return HttpNotFound();
+            ViewBag.Area = items.First().Area.Name;
+            return View(items);
         }
 
-        public ActionResult About()
+        public ActionResult Detail(long id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            Item item = db.Items.Find(id);
+            decimal price = item.ItemPrices.Where(x => x.Date == new DateTime(2022, 11, 25)).FirstOrDefault().Price;
+            ViewBag.Price = price;
+            return View(item);
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public async Task<ActionResult> Payment(long id, decimal price, int capacity)
         {
-            ViewBag.Message = "Your contact page.";
+            string api = "http://localhost:5000/Payment/";
+            using(HttpClient client = new HttpClient())
+            {
+                var data = new
+                {
+                    customer = "John Doe",
+                    orderId = id.ToString(),
+                    price = price,
+                    extraInfo = "capacity: " + capacity,
+                    callBackUrl = Url.Action("PaymenResult", "Home", null, Request.Url.Scheme)
+                };
+                string jsonData = JsonConvert.SerializeObject(data);
+                HttpContent content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(api + "PaymentToken", content);
+                if(response.IsSuccessStatusCode)
+                {
+                    string token = await response.Content.ReadAsStringAsync();
+                    return Redirect(api + token);
+                }
+            }
+            return View("Error");
+        }
 
+        public ActionResult PaymenResult()
+        {
+            string id = Request.QueryString["OrderId"];
+            Item item = db.Items.Find(long.Parse(id));
+            ViewBag.Property = item.Title;
+            decimal price = decimal.Parse(Request.QueryString["Price"]);
+            ViewBag.Price = price;
+            Transaction transaction = new Transaction()
+            {
+                ID = db.Transactions.OrderByDescending(x => x.ID).FirstOrDefault().ID,
+                GUID = Guid.NewGuid(),
+                Amount = price,
+                GatewayReturnID = Request.QueryString["TrackId"],
+                TransactionDate = new DateTime(2022, 11, 25),
+                TransactionTypeID = 1,
+                UserID = 3,
+            };
+            db.Transactions.Add(transaction);
+            db.SaveChanges();
+            ViewBag.Transaction = transaction.ID;
             return View();
         }
     }
