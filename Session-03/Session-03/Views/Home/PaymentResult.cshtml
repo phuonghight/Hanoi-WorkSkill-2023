@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "- Payment Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 class="text-center my-3">
+    Congratulations,the accommodation has been booked for
+    you from 25th of November to 26th of November. We wish you a nice stay
+</h4>
+<div class="border p-3 mx-auto" style="width:700px">
+    Transaction Details:
+    <div class="ms-5">
+        <p>Transaction No: @ViewBag.Transaction</p>
+        <p>Property title: @ViewBag.Property</p>
+        <p>Total Fee: @ViewBag.Price USD</p>
+    </div>
+</div>

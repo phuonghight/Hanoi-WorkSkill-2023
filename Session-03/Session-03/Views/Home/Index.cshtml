@@ -1,30 +1,31 @@
-﻿@model HashSet<Session_03.Models.Item>
-
+﻿@model List<Session_03.Models.Item>
 @{
-    ViewBag.Title = "- Property Results for" + ViewBag.Area;
+    ViewBag.Title = "- Reservation Result for " + ViewBag.Area;
 }
 
-<h4>Property result for @ViewBag.Area from 25/11/2022 for 1 nights</h4>
-<div class="d-flex flex-wrap">
-    @foreach(Session_03.Models.Item item in Model)
-    {
-        <a href="@Url.Action("Detail", "Home", new { id = item.ID })"
-           class="d-block m-3 p-3 border border-dark text-dark text-decoration-none"
-           style="width:22%;cursor:pointer">
-            @{ 
-                string src = "~/itemPictures/";
-                src += item.ItemPictures.Count > 0 ? item.ItemPictures.First().PictureFileName : "default.jpg";
-                decimal price = item.ItemPrices.Where(x => x.Date == new DateTime(2022, 11, 25)).FirstOrDefault().Price;
-            }
-            <div>
-                <img class="w-100" src="@Url.Content(src)" />
-            </div>
-            <p><b>@item.Title</b></p>
-            <div>
-                <span class="me-5">Area: @ViewBag.Area</span>
-                <span>Capacity: @item.Capacity</span>
-            </div>
-            <p>Total fee: $@price</p>
-        </a>
-    }
+<h4>Reservation result for "@ViewBag.Area" from 25/11/2022 for 1 nights</h4>
+<div>
+    <div class="d-flex flex-wrap">
+        @foreach (Session_03.Models.Item item in Model)
+        {
+            <a href="@Url.Action("Detail", "Home", new { id = item.ID })"
+               style="cursor:pointer;width:22%" class="d-block border p-3 m-3 text-dark text-decoration-none">
+                @{
+                    string src = "~/itemPictures/";
+                    src += item.ItemPictures.Count > 0 ? item.ItemPictures.First().PictureFileName : "default.jpg";
+                    decimal price = 0;
+                    price = item.ItemPrices.Where(x => x.Date >= new DateTime(2022, 11, 25)).Sum(x => x.Price);
+                }
+                <div>
+                    <img class="w-100" src="@Url.Content(src)" />
+                </div>
+                <p><b>@item.Title</b></p>
+                <div>
+                    <span class="me-5">Area: @ViewBag.Area</span>
+                    <span>Capacity: @item.Capacity</span>
+                </div>
+                <p>Total Fee: $@price</p>
+            </a>
+        }
+    </div>
 </div>

@@ -9,13 +9,13 @@
 </head>
 <body>
     <div class="container body-content">
-        <div class="d-flex justify-content-between align-items-center my-3">
-            <div class="border border-3 border-dark py-3 px-5">LOGO</div>
-            @using(Html.BeginForm("Index", "Home", FormMethod.Post))
+        <div class="d-flex my-3 justify-content-between align-items-center">
+            <div class="border py-3 px-5">LOGO</div>
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
                 <input name="area" />
             }
-            <div>Welcome John Doe</div>
+            <p>Welcome John Doe</p>
         </div>
         @RenderBody()
     </div>
